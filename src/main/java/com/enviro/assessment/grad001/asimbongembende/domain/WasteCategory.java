@@ -1,4 +1,4 @@
-package asimbongembende.domain;
+package com.enviro.assessment.grad001.asimbongembende.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package asimbongembende.util;
+package com.enviro.assessment.grad001.asimbongembende.util;
 
 public class Helper {
     public static void validateName(String name) {

@@ -1,4 +1,4 @@
-package asimbongembende.factory;
+package com.enviro.assessment.grad001.asimbongembende.factory;
 
 import com.enviro.assessment.grad001.asimbongembende.domain.RecyclingTip;
 import com.enviro.assessment.grad001.asimbongembende.util.Helper;

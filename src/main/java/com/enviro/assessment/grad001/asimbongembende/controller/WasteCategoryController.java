@@ -1,4 +1,4 @@
-package asimbongembende.controller;
+package com.enviro.assessment.grad001.asimbongembende.controller;
 
 import com.enviro.assessment.grad001.asimbongembende.domain.WasteCategory;
 import com.enviro.assessment.grad001.asimbongembende.service.WasteCategoryService;

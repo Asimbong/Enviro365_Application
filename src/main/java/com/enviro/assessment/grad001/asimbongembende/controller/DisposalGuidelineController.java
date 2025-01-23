@@ -15,6 +15,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/disposal-guidelines/")
+@CrossOrigin(origins = "*")
 public class DisposalGuidelineController {
     private final DisposalGuidelineService service;
 

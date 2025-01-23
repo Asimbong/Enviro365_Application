@@ -14,6 +14,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/waste-categories/")
+@CrossOrigin(origins = "*")
 public class WasteCategoryController {
     private final WasteCategoryService service;
 

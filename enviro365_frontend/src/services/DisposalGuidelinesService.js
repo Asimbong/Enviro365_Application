@@ -1,11 +1,24 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:9191/enviro365db/disposal-guidelines';
+import axiosInstance from './axiosInstance';
 
 const getDisposalGuidelines = () => {
-  return axios.get(API_URL);
+  return axiosInstance.get('/disposal-guidelines/get-all');
+};
+
+const createGuideline = (guideline) => {
+  return axiosInstance.post('/disposal-guidelines/create', guideline);
+};
+
+const updateGuideline = (id, guideline) => {
+  return axiosInstance.put(`/disposal-guidelines/update/${id}`, guideline);
+};
+
+const deleteGuideline = (id) => {
+  return axiosInstance.delete(`/disposal-guidelines/delete/${id}`);
 };
 
 export default {
   getDisposalGuidelines,
+  createGuideline,
+  updateGuideline,
+  deleteGuideline,
 };

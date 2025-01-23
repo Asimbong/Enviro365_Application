@@ -1,11 +1,24 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:9191/enviro365db/recycling-tips';
+import axiosInstance from './axiosInstance';
 
 const getRecyclingTips = () => {
-  return axios.get(API_URL);
+  return axiosInstance.get('/recycling-tips/get-all');
+};
+
+const createTip = (tip) => {
+  return axiosInstance.post('/recycling-tips/create', { tip });
+};
+
+const updateTip = (id, tip) => {
+  return axiosInstance.put(`/recycling-tips/update/${id}`, { tip });
+};
+
+const deleteTip = (id) => {
+  return axiosInstance.delete(`/recycling-tips/delete/${id}`);
 };
 
 export default {
   getRecyclingTips,
+  createTip,
+  updateTip,
+  deleteTip,
 };

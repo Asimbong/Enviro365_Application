@@ -4,9 +4,9 @@ import { Modal, Button, Form, Alert } from 'react-bootstrap';
 
 const WasteCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [newCategory, setNewCategory] = useState('');
+  const [newCategory, setNewCategory] = useState({ name: '', pricePerKg: '' });
   const [editCategory, setEditCategory] = useState(null);
-  const [editCategoryName, setEditCategoryName] = useState('');
+  const [editCategoryData, setEditCategoryData] = useState({ name: '', pricePerKg: '' });
   const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
 
@@ -21,14 +21,14 @@ const WasteCategories = () => {
   };
 
   const addCategory = () => {
-    if (newCategory.trim() === '') {
-      showError('Category name cannot be empty');
+    if (newCategory.name.trim() === '' || newCategory.pricePerKg.trim() === '') {
+      showError('Category name and price per kg cannot be empty');
       return;
     }
-    WasteCategoriesService.createCategory({ name: newCategory })
+    WasteCategoriesService.createCategory(newCategory)
       .then(() => {
         fetchCategories();
-        setNewCategory('');
+        setNewCategory({ name: '', pricePerKg: '' });
       })
       .catch(() => showError('Error adding category'));
   };
@@ -41,20 +41,20 @@ const WasteCategories = () => {
 
   const startEditCategory = (category) => {
     setEditCategory(category);
-    setEditCategoryName(category.name);
+    setEditCategoryData({ name: category.name, pricePerKg: category.pricePerKg });
     setShowModal(true);
   };
 
   const updateCategory = () => {
-    if (editCategoryName.trim() === '') {
-      showError('Category name cannot be empty');
+    if (editCategoryData.name.trim() === '' || editCategoryData.pricePerKg.trim() === '') {
+      showError('Category name and price per kg cannot be empty');
       return;
     }
-    WasteCategoriesService.updateCategory(editCategory.id, { name: editCategoryName })
+    WasteCategoriesService.updateCategory(editCategory.id, editCategoryData)
       .then(() => {
         fetchCategories();
         setEditCategory(null);
-        setEditCategoryName('');
+        setEditCategoryData({ name: '', pricePerKg: '' });
         setShowModal(false);
       })
       .catch(() => showError('Error updating category'));
@@ -72,16 +72,22 @@ const WasteCategories = () => {
       <div className="mb-3">
         <Form.Control
           type="text"
-          placeholder="New Category"
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
+          placeholder="New Category Name"
+          value={newCategory.name}
+          onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
+        />
+        <Form.Control
+          type="text"
+          placeholder="Price per Kg"
+          value={newCategory.pricePerKg}
+          onChange={(e) => setNewCategory({ ...newCategory, pricePerKg: e.target.value })}
         />
         <Button className="mt-2" onClick={addCategory}>Add Category</Button>
       </div>
       <ul className="list-group">
         {categories.map(category => (
           <li key={category.id} className="list-group-item d-flex justify-content-between align-items-center">
-            {category.name}
+            {category.name} - R{category.pricePerKg}
             <div>
               <Button variant="secondary" size="sm" className="me-2" onClick={() => startEditCategory(category)}>Edit</Button>
               <Button variant="danger" size="sm" onClick={() => deleteCategory(category.id)}>Delete</Button>
@@ -96,8 +102,13 @@ const WasteCategories = () => {
         <Modal.Body>
           <Form.Control
             type="text"
-            value={editCategoryName}
-            onChange={(e) => setEditCategoryName(e.target.value)}
+            value={editCategoryData.name}
+            onChange={(e) => setEditCategoryData({ ...editCategoryData, name: e.target.value })}
+          />
+          <Form.Control
+            type="text"
+            value={editCategoryData.pricePerKg}
+            onChange={(e) => setEditCategoryData({ ...editCategoryData, pricePerKg: e.target.value })}
           />
         </Modal.Body>
         <Modal.Footer>

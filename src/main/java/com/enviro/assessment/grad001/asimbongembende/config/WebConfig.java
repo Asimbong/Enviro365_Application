@@ -1,4 +1,4 @@
-package com.enviro.assessment.grad001.asimbongembende.congig;
+package com.enviro.assessment.grad001.asimbongembende.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
